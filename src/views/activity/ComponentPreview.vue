@@ -1,6 +1,8 @@
 <template>
   <div
     class="preview-content"
+    @drop.stop.prevent="componentDrap"
+    @dragover.prevent
   >
     <div
       v-for="component in page.components"
@@ -10,6 +12,7 @@
         checked: component.mark === currentMark,
       }"
       :style="{ 'text-align': component.style.align }"
+      @click="switchComponent(component)"
     >
       <div style="display: inline-block">
         <component
@@ -32,6 +35,28 @@ const store = useStore();
 const page = computed(() => store.getters.page);
 const currentMark = computed(() => store.getters.currentComponent.mark);
 
+// 拖入组件
+const componentDrap = (e) => {
+  const data = e.dataTransfer.getData('component-drag');
+  const component = JSON.parse(data);
+  const componentData = getComponentTemplateData({
+    name: component.name,
+    fullName: component.fullName,
+  });
+  // 添加组件
+  store.commit('addComponent', componentData);
+  // 更新选中组件
+  selectComponent(store, {
+    name: component.name,
+    fullName: component.fullName,
+    mark: componentData.mark,
+  });
+};
+
+// 选中组件
+const switchComponent = (component) => {
+  selectComponent(store, component);
+};
 </script>
 
 <style scoped>

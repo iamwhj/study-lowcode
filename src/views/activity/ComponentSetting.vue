@@ -4,6 +4,7 @@
     <component
       :is="name"
       :key="currentMark"
+      :updateCompDeail="updateCompDeail"
       v-bind="config"
     ></component>
   </div>
@@ -33,6 +34,10 @@ const config = computed(() => {
   }
 });
 
+// 注入更新配置函数
+const updateCompDeail = (newDetail, key = 'detail') => {
+  updateComponent(store, { newDetail, key });
+};
 </script>
 
 <style scoped>

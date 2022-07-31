@@ -11,6 +11,8 @@
           class="component-item"
           v-for="item in componentList"
           :key="item.id"
+          draggable="true"
+          @dragstart="dragStart($event, item)"
         >
           <img :src="item.path" />
           <span>{{ item.full_name }}</span>
@@ -25,19 +27,27 @@ const activeName = ['基础组件'];
 
 // 分类列表
 const categoryList = [
-  // { id: 1, name: '基础组件' },
+  { id: 1, name: '基础组件' }
 ];
 
 // 组件列表
 const componentList = [
-  // {
-  //   id: 1,
-  //   name: 'vButton',
-  //   full_name: '按钮',
-  //   path: 'https://s1.ax1x.com/2022/07/11/j6ctCq.png',
-  // },
+  {
+    id: 1,
+    name: 'vButton',
+    full_name: '按钮',
+    path: 'https://s1.ax1x.com/2022/07/11/j6ctCq.png',
+  },
 ];
 
+// 拖动组件
+const dragStart = (e, item) => {
+  const transferData = {
+    name: item.name,
+    fullName: item.full_name,
+  };
+  e.dataTransfer.setData('component-drag', JSON.stringify(transferData));
+};
 </script>
 
 <style scoped>

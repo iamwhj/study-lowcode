@@ -8,6 +8,6 @@ import registerCustomComponents from './custom-components';
 const app = createApp(App).use(store).use(ElementPlus);
 
 // 注册自定义组件
-// registerCustomComponents(app);
+registerCustomComponents(app);
 
 app.mount('#app');

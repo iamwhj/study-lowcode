@@ -17,6 +17,7 @@ const btnStyle = computed(() => {
   return {
     width: props.width,
     height: props.height,
+    backgroundColor: '#409EFF'
   };
 });
 </script>
